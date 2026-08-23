@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: stg_music_tracks
+    columns:
+      - name: track_id
+        tests:
+          - not_null
+          - unique
+
+      - name: track_genre
+        tests:
+          - not_null
+
+  - name: dim_tracks
+    columns:
+      - name: track_id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_genres
+    columns:
+      - name: track_genre
+        tests:
+          - not_null
+          - unique
+
+  - name: fact_track_metrics
+    columns:
+      - name: track_id
+        tests:
+          - not_null
