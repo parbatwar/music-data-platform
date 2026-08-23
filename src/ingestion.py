@@ -1,15 +1,10 @@
-import json
-import requests
+import pandas as pd
+from database import engine
 
-print("Music data ingestion started")
+df = pd.read_csv("data/raw/dataset.csv")
 
-response = requests.get("https://jsonplaceholder.typicode.com/posts")
+df = df.rename(columns={"Unnamed: 0": "source_row_id"})
 
-print(response.status_code)
+df.to_sql(name="raw_music_tracks", con=engine, if_exists="append", index=False)
 
-data = response.json()
-
-with open("data/raw/posts.json", "w") as file:
-    json.dump(data, file)
-
-print("Raw data saved.")
+print("Data loaded into PostgreSQL")
